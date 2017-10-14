@@ -1,0 +1,10 @@
+export const pMain = '#1565c0';
+export const pLight = '#5e92f3';
+export const pDark = '#003c8f';
+export const white = '#fff';
+export const sMain = '#ffa000';
+export const sLight = '#ffd149';
+export const sDark = '#c67100';
+export const black = '#000';
+export const grayLight = '#eee'
+export const gray= '#888';
