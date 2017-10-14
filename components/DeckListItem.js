@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import {styleLibrary} from '../utils/styles';
 
 DeckListItem = (props) => {
   return(
@@ -9,3 +10,5 @@ DeckListItem = (props) => {
     </View>
   )
 }
+
+export default DeckListItem;
