@@ -1,42 +1,50 @@
 import React, {Component} from 'react';
-import {View,Text, StyleSheet} from 'react-native';
+import {View,Text, StyleSheet,FlatList} from 'react-native';
+import {connect} from 'react-redux';
 import {styleLibrary} from '../utils/styles';
 import DeckListItem from './DeckListItem';
 import {getDecks} from '../utils/api';
 import {isEmpty} from '../utils/helpers';
+import {loadDecks} from '../actions/index';
 
 class DeckList extends Component{
-  state = {
-    decks:null
-  };
 
   componentDidMount(){
     getDecks()
     .then((decks) => {
-      console.log(Object.keys(decks));
-      this.setState({decks});
+      this.props.load({decks:decks});
     });
   }
 
-  render(){
-    const {decks} = this.state;
 
+  listBuilder = ({item}) => {
+      const {decks} = this.props;
+      return (<DeckListItem title={item.title} subTitle={`${this.props.decks[item.title].questions.length} cards`}/>);
+  };
+
+  render(){
+    const {decks} = this.props;
+    let decksForList = Object.keys(decks).map((item) => ({key:item,title:item}));
     return(
       <View style={styleLibrary.container}>
-      { isEmpty(decks)
+        {isEmpty(decks)
         ? <DeckListItem title="" subTitle="You haven't created any decks yet. Start creating new decks by using the tab 'New Deck'."/>
-        : <View>
-          { Object.keys(decks).map( title => (
-            <DeckListItem key={title} title={decks[title].title} subTitle={`${decks[title].questions.length} cards`}/>
-            ))
-          }
-          </View>
-      }
-    </View>
-    );
+        : <FlatList
+            data={decksForList}
+            extraData={decks}
+            renderItem={this.listBuilder}>
+          </FlatList>
+        }
+      </View>);
   }
 }
 
+const mapStateToProps = ({decks}) => ({
+  decks: decks.list,
+})
 
+const mapDispatchToProps = dispatch => ({
+  load : data => dispatch(loadDecks(data))
+})
 
-export default DeckList;
+export default connect(mapStateToProps,mapDispatchToProps)(DeckList);

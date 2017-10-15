@@ -3,13 +3,14 @@ import {black,white,gray,grayLight,sMain} from './colors';
 export const styleLibrary = StyleSheet.create({
   container:{
     flex:1,
-    padding:20,
     backgroundColor:grayLight,
     justifyContent:'space-between'
   },
   //Decks styles
   listItem : {
     marginTop:15,
+    marginLeft:20,
+    marginRight:20,
     paddingTop:10,
     paddingBottom:10,
     alignItems:'center',

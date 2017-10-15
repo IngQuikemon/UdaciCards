@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {View,Text, StyleSheet,TextInput, TouchableNativeFeedback,Alert} from 'react-native';
+import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import {styleLibrary} from '../utils/styles';
 import {cleanTitleString} from '../utils/helpers';
 import {saveDeckTitle} from '../utils/api';
+import {addDeck} from '../actions/index';
 
 class NewDeck extends Component{
   state = {
@@ -15,10 +17,13 @@ class NewDeck extends Component{
       questions:[],
     };
 
-    saveDeckTitle({
+    const newDeck = {
       entry:deck,
       key:deck.title
-    });
+    };
+
+    this.props.add({deck:deck});
+    saveDeckTitle(newDeck);
 
     this.props.navigation.dispatch(
       NavigationActions.back({key:'NewDeck'})
@@ -45,4 +50,9 @@ class NewDeck extends Component{
   }
 }
 
-export default NewDeck;
+mapDispatchToProps = dispatch => ({
+  add : (data) => dispatch(addDeck(data)),
+})
+
+
+export default connect(null,mapDispatchToProps)(NewDeck);

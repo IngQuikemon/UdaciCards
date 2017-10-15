@@ -1,8 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View,StatusBar } from 'react-native';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
 import {StackNavigator,TabNavigator} from 'react-navigation';
-import {Constants} from 'expo'
+import {Constants} from 'expo';
 import { pDark,pText,pLight,sMain } from './utils/colors';
+import reducer from './reducers';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 
@@ -55,10 +58,12 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex:1}}>
-        <UdaciStatusBar backgroundColor={pDark} barStyle='light-content'  />
-        <MainNavigator />
-      </View>
+      <Provider store={createStore(reducer)} >
+        <View style={{flex:1}}>
+          <UdaciStatusBar backgroundColor={pDark} barStyle='light-content'  />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
