@@ -5,10 +5,13 @@ export const styleLibrary = StyleSheet.create({
     flex:1,
     padding:20,
     backgroundColor:grayLight,
+    justifyContent:'space-between'
   },
   //Decks styles
   listItem : {
-    padding:10,
+    marginTop:15,
+    paddingTop:10,
+    paddingBottom:10,
     alignItems:'center',
     justifyContent: 'center',
     backgroundColor: white,

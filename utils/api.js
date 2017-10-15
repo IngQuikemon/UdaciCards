@@ -1,17 +1,20 @@
 import {AsyncStorage} from 'react-native';
-import {CALENDAR_STORAGE_KEY} from './_decks.js';
+import {prepareDecks} from './_decks';
+import {DECKS_STORAGE_KEY} from './_decks.js';
 
 export function getDecks(){
-  return AsyncStorage.getItem(CALENDAR_STORAGE_KEY)
-  .then((results) => JSON.parse(results));
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+  .then(prepareDecks);
 }
 
 export function getDeck(){
   return null;
 }
 
-export function saveDeckTitle(){
-  return null;
+export function saveDeckTitle({entry,key}){
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY,JSON.stringify({
+    [key]:entry,
+  }));
 }
 
 export function addCardToDeck(){
