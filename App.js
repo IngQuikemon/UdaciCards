@@ -4,10 +4,12 @@ import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import {StackNavigator,TabNavigator} from 'react-navigation';
 import {Constants} from 'expo';
-import { pDark,pText,pLight,sMain } from './utils/colors';
+import { pDark,white,pLight,sMain,pMain } from './utils/colors';
 import reducer from './reducers';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
+import DeckDetail from './components/DeckDetail';
+import NewCard from './components/NewCard';
 
 function UdaciStatusBar ({backgroundColor,...props}){
   return(
@@ -36,8 +38,8 @@ const Tabs = TabNavigator({
     header: null
   },
   tabBarOptions:{
-    activeTintColor: pText,
-    inactiveTintColor: pText,
+    activeTintColor: white,
+    inactiveTintColor: white,
     style:{
       height:56,
       backgroundColor:pLight,
@@ -52,6 +54,24 @@ const Tabs = TabNavigator({
 const MainNavigator = StackNavigator({
   Home:{
     screen: Tabs,
+  },
+  DeckDetail:{
+    screen: DeckDetail,
+    navigationOptions: {
+      headerTintColor:white,
+      headerStyle:{
+        backgroundColor:pMain,
+      }
+    }
+  },
+  AddCard: {
+    screen: NewCard,
+    navigationOptions:{
+      headerTintColor:white,
+      headerStyle:{
+        backgroundColor:pMain,
+      }
+    }
   },
 });
 

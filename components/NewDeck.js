@@ -35,7 +35,7 @@ class NewDeck extends Component{
         <View style={styleLibrary.addDeckContainer}>
           <Text style={styleLibrary.addDeckTitle}>What is the title of your new deck?</Text>
           <TextInput placeholder="Deck Title" style={styleLibrary.addDeckInput} onChangeText={(text) => this.setState({newTitle:text})}/>
-          <View style={{alignItems:'flex-end'}}>
+          <View style={{alignItems:'center'}}>
             <TouchableNativeFeedback
               background={TouchableNativeFeedback.SelectableBackground()}
               onPress={this.submit}>

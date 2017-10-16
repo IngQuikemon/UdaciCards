@@ -16,10 +16,14 @@ class DeckList extends Component{
     });
   }
 
-
   listBuilder = ({item}) => {
       const {decks} = this.props;
-      return (<DeckListItem title={item.title} subTitle={`${this.props.decks[item.title].questions.length} cards`}/>);
+      return (
+        <DeckListItem title={item.title} openDeck={() => this.props.navigation.navigate(
+            'DeckDetail',
+            {deckId:item.title}
+          )} subTitle={`${this.props.decks[item.title].questions.length} cards`}/>
+      );
   };
 
   render(){

@@ -10,7 +10,7 @@ export const addDeck = ({deck}) => ({
   deck,
 });
 
-export const addQuestion = ({title,question}) =>({
+export const addCard = ({title,question}) =>({
   type:Constants.ADD_QUESTION,
   title,
   question,

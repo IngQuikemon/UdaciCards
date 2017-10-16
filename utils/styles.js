@@ -4,7 +4,6 @@ export const styleLibrary = StyleSheet.create({
   container:{
     flex:1,
     backgroundColor:grayLight,
-    justifyContent:'space-between'
   },
   //Decks styles
   listItem : {
@@ -52,6 +51,38 @@ export const styleLibrary = StyleSheet.create({
     borderRadius:2,
   },
   addDeckButtonText:{
+    color:black,
+    fontSize:22,
+  },
+  //Button DeckDetail
+  detailContainer: {
+    flex:1,
+    justifyContent:'center',
+  },
+  detailButton:{
+    marginTop:20,
+    padding:10,
+    width:150,
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius:2,
+    shadowColor: black,
+    shadowOffset:{width:0,height:2},
+    shadowOpacity:.8,
+    shadowRadius:2,
+    elevation:2,
+  },
+  detailDeckTitle:{
+    fontSize:45,
+    fontWeight:'bold',
+    textAlign:'center'
+  },
+  detailDeckSubTitle:{
+    fontSize:25,
+    color:gray,
+    textAlign:'center'
+  },
+  detailDeckButtonText:{
     color:black,
     fontSize:22,
   }
