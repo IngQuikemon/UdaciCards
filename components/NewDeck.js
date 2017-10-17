@@ -6,6 +6,7 @@ import {styleLibrary} from '../utils/styles';
 import {cleanTitleString} from '../utils/helpers';
 import {saveDeck} from '../utils/api';
 import {addDeck} from '../actions/index';
+import {sMain} from '../utils/colors';
 
 class NewDeck extends Component{
   state = {
@@ -37,11 +38,11 @@ class NewDeck extends Component{
         <View style={styleLibrary.addDeckContainer}>
           <Text style={styleLibrary.addDeckTitle}>What is the title of your new deck?</Text>
           <TextInput placeholder="Deck Title" style={styleLibrary.addDeckInput} onChangeText={(text) => this.setState({newTitle:text})}/>
-          <View style={{alignItems:'center'}}>
+          <View style={[styleLibrary.buttonContainer,{marginTop:150}]}>
             <TouchableNativeFeedback
               background={TouchableNativeFeedback.SelectableBackground()}
               onPress={this.submit}>
-              <View style={styleLibrary.addDeckButtonContainer} >
+              <View style={[styleLibrary.buttonRaised,{backgroundColor:sMain}]} >
                 <Text style={styleLibrary.addDeckButtonText} >Create Deck</Text>
               </View>
             </TouchableNativeFeedback>

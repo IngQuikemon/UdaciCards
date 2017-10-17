@@ -45,10 +45,10 @@ class NewCard extends Component{
     <View style={[styleLibrary.detailContainer,{padding:20}]}>
       <TextInput placeholder="Type a question" style={styleLibrary.addDeckInput} onChangeText={(text) => this.setState({question:text})}/>
       <TextInput placeholder="Type an answer" style={styleLibrary.addDeckInput} onChangeText={(text) => this.setState({answer:text})}/>
-      <View style={{alignItems:'center'}}>
+      <View style={styleLibrary.buttonContainer}>
         <TouchableNativeFeedback
           onPress={this.submit}>
-          <View style={[styleLibrary.detailButton,{backgroundColor:sMain,marginTop:100}]}>
+          <View style={[styleLibrary.buttonRaised,{backgroundColor:sMain,marginTop:100}]}>
             <Text style={styleLibrary.detailDeckButtonText}>Add Card</Text>
           </View>
         </TouchableNativeFeedback>

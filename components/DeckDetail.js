@@ -18,13 +18,13 @@ class DeckDetail extends Component{
         <Text style={styleLibrary.detailDeckSubTitle}>
           {`${decks[title].questions.length} cards`}
         </Text>
-        <View style={styleLibrary.buttonContainer}>
+        <View style={[styleLibrary.buttonContainer,{marginTop:150}]}>
           <TouchableNativeFeedback
             onPress={() => this.props.navigation.navigate(
                 'AddCard',
                 {deckId:title}
               )}>
-            <View style={[styleLibrary.detailButton,{backgroundColor:white}]}>
+            <View style={[styleLibrary.buttonRaised,{backgroundColor:white}]}>
               <Text style={styleLibrary.detailDeckButtonText}>Add Card</Text>
             </View>
           </TouchableNativeFeedback>
@@ -33,7 +33,7 @@ class DeckDetail extends Component{
                 'StartQuiz',
                 {deckId:title}
               )}>
-            <View style={[styleLibrary.detailButton,{backgroundColor:sMain}]}>
+            <View style={[styleLibrary.buttonRaised,{backgroundColor:sMain}]}>
               <Text style={styleLibrary.detailDeckButtonText}>Start Quiz</Text>
             </View>
           </TouchableNativeFeedback>

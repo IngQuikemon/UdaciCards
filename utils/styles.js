@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {black,white,gray,grayLight,sMain} from './colors';
+import {black,white,gray,grayLight,sMain,sDark} from './colors';
 export const styleLibrary = StyleSheet.create({
   container:{
     flex:1,
@@ -57,14 +57,29 @@ export const styleLibrary = StyleSheet.create({
   buttonContainer:{
     alignItems:'center',
     justifyContent:'flex-end',
-    marginTop:150,
+  },
+  subTitleText:{
+    marginLeft:15,
+    marginTop:5,
+    fontSize:25,
+    color:gray,
+  },
+  containerCard:{
+    backgroundColor:white,
+    margin:10,
+    padding:10,
+    shadowColor: black,
+    shadowOffset:{width:0,height:2},
+    shadowOpacity:.8,
+    shadowRadius:2,
+    elevation:2,
   },
   //Button DeckDetail
   detailContainer: {
     flex:1,
     justifyContent:'center',
   },
-  detailButton:{
+  buttonRaised:{
     marginTop:20,
     padding:10,
     width:150,
@@ -76,6 +91,16 @@ export const styleLibrary = StyleSheet.create({
     shadowOpacity:.8,
     shadowRadius:2,
     elevation:2,
+  },
+  buttonFlat:{
+    padding:10,
+    width:125,
+  },
+  buttonFlatText:{
+    color:sDark,
+    alignItems:'center',
+    marginRight:15,
+    fontSize:22,
   },
   detailDeckTitle:{
     fontSize:45,
