@@ -8,3 +8,5 @@ export const sDark = '#c67100';
 export const black = '#000';
 export const grayLight = '#eee'
 export const gray= '#888';
+export const green='#8bc34a';
+export const red = '#f44336';

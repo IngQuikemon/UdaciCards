@@ -54,6 +54,11 @@ export const styleLibrary = StyleSheet.create({
     color:black,
     fontSize:22,
   },
+  buttonContainer:{
+    alignItems:'center',
+    justifyContent:'flex-end',
+    marginTop:150,
+  },
   //Button DeckDetail
   detailContainer: {
     flex:1,

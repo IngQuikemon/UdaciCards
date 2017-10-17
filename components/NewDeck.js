@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {View,Text, StyleSheet,TextInput, TouchableNativeFeedback,Alert} from 'react-native';
+import {View,Text, StyleSheet,TextInput, TouchableNativeFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import {styleLibrary} from '../utils/styles';
 import {cleanTitleString} from '../utils/helpers';
-import {saveDeckTitle} from '../utils/api';
+import {saveDeck} from '../utils/api';
 import {addDeck} from '../actions/index';
 
 class NewDeck extends Component{
@@ -23,7 +23,9 @@ class NewDeck extends Component{
     };
 
     this.props.add({deck:deck});
-    saveDeckTitle(newDeck);
+    saveDeck(newDeck);
+
+    this.setState({newTitle:''});
 
     this.props.navigation.dispatch(
       NavigationActions.back({key:'NewDeck'})

@@ -10,6 +10,7 @@ import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import DeckDetail from './components/DeckDetail';
 import NewCard from './components/NewCard';
+import DeckQuiz from './components/DeckQuiz';
 
 function UdaciStatusBar ({backgroundColor,...props}){
   return(
@@ -73,6 +74,15 @@ const MainNavigator = StackNavigator({
       }
     }
   },
+  StartQuiz:{
+    screen: DeckQuiz,
+    navigationOptions:{
+      headerTintColor:white,
+      headerStyle:{
+        backgroundColor:pMain,
+      }
+    }
+  }
 });
 
 export default class App extends React.Component {

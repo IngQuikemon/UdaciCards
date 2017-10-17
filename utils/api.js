@@ -11,12 +11,8 @@ export function getDeck(){
   return null;
 }
 
-export function saveDeckTitle({entry,key}){
+export function saveDeck({entry,key}){
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY,JSON.stringify({
     [key]:entry,
   }));
-}
-
-export function addCardToDeck(){
-  return null;
 }
