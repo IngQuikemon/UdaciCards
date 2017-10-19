@@ -7,14 +7,20 @@ export const styleLibrary = StyleSheet.create({
   },
   //Decks styles
   listItem : {
-    marginTop:15,
+    marginTop:10,
     marginLeft:20,
     marginRight:20,
+    marginBottom:5,
     paddingTop:10,
     paddingBottom:10,
     alignItems:'center',
     justifyContent: 'center',
     backgroundColor: white,
+    shadowColor: black,
+    shadowOffset:{width:0,height:2},
+    shadowOpacity:.8,
+    shadowRadius:2,
+    elevation:2,
   },
   listItemTitle:{
     fontWeight:'bold',
@@ -94,7 +100,7 @@ export const styleLibrary = StyleSheet.create({
   },
   buttonFlat:{
     padding:10,
-    width:125,
+    width:190,
   },
   buttonFlatText:{
     color:sDark,
