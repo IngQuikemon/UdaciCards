@@ -94,8 +94,14 @@ class DeckQuiz extends Component{
             <View style={[styleLibrary.buttonContainer,{marginBottom:150}]}>
               <TouchableNativeFeedback
                 onPress={this.reset}>
-                <View style={[styleLibrary.buttonRaised,{backgroundColor:sMain}]}>
+                <View style={[styleLibrary.buttonRaised,{backgroundColor:white}]}>
                   <Text style={styleLibrary.detailDeckButtonText}>Try Again</Text>
+                </View>
+              </TouchableNativeFeedback>
+              <TouchableNativeFeedback
+                onPress={() => this.props.navigation.goBack()}>
+                <View style={[styleLibrary.buttonRaised,{backgroundColor:sMain}]}>
+                  <Text style={styleLibrary.detailDeckButtonText}>Close Quiz</Text>
                 </View>
               </TouchableNativeFeedback>
             </View>
