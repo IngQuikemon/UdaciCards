@@ -28,8 +28,9 @@ class NewDeck extends Component{
 
     this.setState({newTitle:''});
 
-    this.props.navigation.dispatch(
-      NavigationActions.back({key:'NewDeck'})
+    this.props.navigation.navigate(
+        'DeckDetail',
+        {deckId:deck.title}
     );
   }
   render(){

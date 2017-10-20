@@ -10,15 +10,6 @@ class DeckListItem extends Component{
   }
 
   submitDeck = () => {
-    /*Animated.timing(
-      this.bounceAnim,
-      {
-        toValue:1,
-        duration:500,
-      }
-    ).start();
-    */
-
     Animated.sequence([
       Animated.decay(
         this.bounceAnim,
@@ -38,7 +29,6 @@ class DeckListItem extends Component{
     ]).start(
       () => this.props.openDeck()
     );
-
   }
 
   render(){
