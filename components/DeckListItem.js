@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { StyleSheet, Text, View,TouchableNativeFeedback, Animated} from 'react-native';
 import {styleLibrary} from '../utils/styles';
 import {addDeck} from '../actions/index';
+import {formattedDate,isValueEmpty} from '../utils/helpers';
 
 class DeckListItem extends Component{
 
@@ -31,17 +32,29 @@ class DeckListItem extends Component{
     );
   }
 
+  subTitleString = (cardCount) => {
+    return `${cardCount} cards`;
+  }
+
+
   render(){
-    const {openDeck,title,subTitle} = this.props;
+    const {deck} = this.props;
     const bounceValue = this.bounceAnim.interpolate({
       inputRange: [0,1],
       outputRange: [25,35]
     });
+
     return(
       <TouchableNativeFeedback onPress={this.submitDeck}>
         <View style={styleLibrary.listItem}>
-          <Animated.Text style={[styleLibrary.listItemTitle,{fontSize:bounceValue}]}>{title}</Animated.Text>
-          <Text style={styleLibrary.listItemSubTitle}>{subTitle}</Text>
+          <Animated.Text style={[styleLibrary.listItemTitle,{fontSize:bounceValue}]}>{deck.title}</Animated.Text>
+          <Text style={styleLibrary.listItemSubTitle}>{this.subTitleString(deck.questions.length)}</Text>
+          <Text style={[styleLibrary.listItemSubTitle,{fontSize:14}]}>
+            {`High Score:${isValueEmpty(deck.highScore) ? 0 : deck.highScore} / Last Score: ${isValueEmpty(deck.lastScore) ? 0 : deck.lastScore}`}
+          </Text>
+          <Text style={[styleLibrary.listItemSubTitle,{fontSize:14}]}>
+            {`Last time completed: ${(deck.lastCompleted !== null && deck.lastCompleted !== undefined ) ?  formattedDate(deck.lastCompleted) : 'Never'}`}
+          </Text>
         </View>
       </TouchableNativeFeedback>
     )

@@ -16,7 +16,7 @@ class NewCard extends Component{
   static navigationOptions = ({navigation}) => ({title:'Add New Card' });
 
   submit = () =>{
-    const {decks,title} = this.props;
+    const {decks,deckId} = this.props;
     const question = {
       question:this.state.question,
       answer:this.state.answer
@@ -24,17 +24,17 @@ class NewCard extends Component{
 
     const deck = {
       questions:[
-        ...decks[title].questions,
+        ...decks[deckId].questions,
         question
       ],
     };
 
     const updatedDeck = {
       entry:deck,
-      key:title
+      key:deckId
     };
 
-    this.props.add({title:title,question:question});
+    this.props.add({keyID:deckId,question:question});
     saveDeck(updatedDeck);
 
     this.props.navigation.goBack();
@@ -62,7 +62,7 @@ const mapStateToProps = ({decks},{navigation}) => {
   const {deckId} = navigation.state.params;
   return {
     decks: decks.list,
-    title: deckId,
+    deckId: deckId,
   }
 }
 

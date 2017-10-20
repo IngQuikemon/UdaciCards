@@ -17,13 +17,22 @@ export const formattedDate = date => {
 }
 
 export const isEmpty = obj => {
-  if (obj === null) return true;
+
+  if(isValueEmpty(obj)){
+    return true;
+  }
 
   for (var key in obj) {
       if (hasOwnProperty.call(obj, key)) return false;
   }
 
   return true;
+}
+
+export const isValueEmpty = obj => {
+  if (obj === null) return true;
+
+  if (obj === undefined) return true;
 }
 
 export function clearLocalNotification() {

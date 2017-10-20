@@ -6,6 +6,7 @@ import DeckListItem from './DeckListItem';
 import {getDecks} from '../utils/api';
 import {isEmpty,cleanTitleString} from '../utils/helpers';
 import {loadDecks} from '../actions/index';
+import SingleTextDialog from './SingleTextDialog';
 
 class DeckList extends Component{
 
@@ -21,23 +22,22 @@ class DeckList extends Component{
       const deckId= cleanTitleString(item.title);
       return (
         <DeckListItem
-          title={decks[deckId].title}
+          deck={decks[deckId]}
           openDeck={() => this.props.navigation.navigate(
             'DeckDetail',
-            {deckId:deckId}
-          )}
-          subTitle={`${decks[deckId].questions.length} cards`}
-          highScore={`${decks[deckId].highScore.length} cards`}/>
+            {title:decks[deckId].title}
+          )}/>
       );
   };
 
   render(){
     const {decks} = this.props;
+    console.log(decks);
     let decksForList = Object.keys(decks).map((item) => ({key:item,title:item}));
     return(
       <View style={styleLibrary.container}>
         {isEmpty(decks)
-        ? <DeckListItem title="" subTitle="You haven't created any decks yet. Start creating new decks by using the tab 'New Deck'."/>
+        ? <SingleTextDialog text="" subText="You haven't created any decks yet. Start creating new decks by using the tab 'New Deck'."/>
         : <FlatList
             data={decksForList}
             extraData={decks}

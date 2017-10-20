@@ -3,26 +3,27 @@ import {View,Text, StyleSheet,TouchableNativeFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {styleLibrary} from '../utils/styles';
 import {black,sMain,white} from '../utils/colors';
+import {cleanTitleString} from '../utils/helpers';
 
 class DeckDetail extends Component{
 
-  static navigationOptions = ({navigation}) => ({title: navigation.state.params.deckId});
+  static navigationOptions = ({navigation}) => ({title: navigation.state.params.title});
 
   render(){
-    const {decks,title} = this.props;
+    const {decks,deckId} = this.props;
     return(
       <View style={styleLibrary.detailContainer}>
         <Text style={styleLibrary.detailDeckTitle}>
-          {title}
+          {decks[deckId].title}
         </Text>
         <Text style={styleLibrary.detailDeckSubTitle}>
-          {`${decks[title].questions.length} cards`}
+          {`${decks[deckId].questions.length} cards`}
         </Text>
         <View style={[styleLibrary.buttonContainer,{marginTop:150}]}>
           <TouchableNativeFeedback
             onPress={() => this.props.navigation.navigate(
                 'AddCard',
-                {deckId:title}
+                {deckId:deckId}
               )}>
             <View style={[styleLibrary.buttonRaised,{backgroundColor:white}]}>
               <Text style={styleLibrary.detailDeckButtonText}>Add Card</Text>
@@ -31,7 +32,7 @@ class DeckDetail extends Component{
           <TouchableNativeFeedback
             onPress={() => this.props.navigation.navigate(
                 'StartQuiz',
-                {deckId:title}
+                {deckId:deckId}
               )}>
             <View style={[styleLibrary.buttonRaised,{backgroundColor:sMain}]}>
               <Text style={styleLibrary.detailDeckButtonText}>Start Quiz</Text>
@@ -44,10 +45,10 @@ class DeckDetail extends Component{
 }
 
 const mapStateToProps = ({decks},{navigation}) => {
-  const {deckId} = navigation.state.params;
+  const {title} = navigation.state.params;
   return {
     decks: decks.list,
-    title: deckId,
+    deckId: cleanTitleString(title),
   }
 }
 

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {View,Text, StyleSheet,TouchableNativeFeedback,Animated,Easing} from 'react-native';
+import {View,Text, TouchableNativeFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {styleLibrary} from '../utils/styles';
 import {black,sMain,white,green,red,sDark} from '../utils/colors';
-import {cancelAllScheduledNotificationsAsync} from '../utils/helpers';
-import {addCard} from '../actions/index';
+import {clearLocalNotification,isEmpty} from '../utils/helpers';
+import {addDeck} from '../actions/index';
+import {saveDeck} from '../utils/api';
 
 class DeckQuiz extends Component{
   state ={
@@ -16,33 +17,39 @@ class DeckQuiz extends Component{
   }
 
   componentDidMount(){
-    const {decks,title} = this.props;
+    const {decks,deckId} = this.props;
 
     this.setState({
-      questions: decks[title].questions,
+      questions: decks[deckId].questions,
       page:0,
-      total:decks[title].questions.length,
+      total:decks[deckId].questions.length,
     });
   }
 
   submit = result => {
+    //Declare variables needed.
+    const {decks,deckId} = this.props;
     const newPage = this.state.page + 1;
     const newScore = this.state.score + result;
-    const deck = this.state.decks[this.state.deckId];
+    const deck = decks[deckId];
+    //updates the state with the current values
     this.setState({
       score:newScore,
       page: newPage,
       toggleCard: 'q',
     });
-
-    if(newPage > this.state.questions.length){
-      cancelAllScheduledNotificationsAsync();
+    //Verifies if the quiz has reached its end.
+    if(newPage + 1 > this.state.questions.length){
+      clearLocalNotification();
+      const newHighScore = isEmpty(deck.highScore) ? 0 : deck.highScore;
       const deckToUpdate = {
-        highScore: deck.highScore > newScore ? deck.highScore : newScore ,
+        highScore: newHighScore >= newScore ? deck.highScore : newScore ,
         lastScore: newScore,
         lastCompleted: Date.now(),
       }
-      this.props.update({entry:deckToUpdate,key:this.props.title});
+      console.log({entry:deckToUpdate,key:deckId});
+      this.props.update({deck:deckToUpdate,keyID:deckId});
+      saveDeck({entry:deckToUpdate,key:deckId});
     }
   }
 
@@ -70,7 +77,7 @@ class DeckQuiz extends Component{
          return(
             <View style={[styleLibrary.container,{justifyContent:'space-between'}]}>
               <Text style={[styleLibrary.subTitleText,{alignItems:'flex-start'}]}>{page + 1}/{total}</Text>
-              <Animated.View style={styleLibrary.containerCard}>
+              <View style={styleLibrary.containerCard}>
                 <Text style={[styleLibrary.detailDeckTitle,{alignItems:'center'}]}>"{toggleCard === 'q' ? questions[page].question : questions[page].answer}"</Text>
                 <View style={{alignItems:'flex-end'}}>
                   <TouchableNativeFeedback
@@ -80,7 +87,7 @@ class DeckQuiz extends Component{
                     </View>
                   </TouchableNativeFeedback>
                 </View>
-              </Animated.View>
+              </View>
               <View style={[styleLibrary.buttonContainer,{marginBottom:150}]}>
                 <TouchableNativeFeedback
                   onPress={() => this.submit(1)}>
@@ -137,13 +144,13 @@ const mapStateToProps = ({decks},{navigation}) => {
   const {deckId} = navigation.state.params;
   return {
     decks: decks.list,
-    title: deckId,
+    deckId: deckId,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    update : (data) => dispatch(addCard(data)),
+    update : (data) => dispatch(addDeck(data)),
   }
 }
 

@@ -11,7 +11,7 @@ export const addDeck = ({deck,keyID}) => ({
   keyID,
 });
 
-export const addCard = ({title,question}) =>({
+export const addCard = ({keyID,question}) =>({
   type:Constants.ADD_QUESTION,
   keyID,
   question,

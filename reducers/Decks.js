@@ -13,12 +13,22 @@ export default function decks(state= decksInitialValue, action){
       };
     case ADD_DECK:
       return {
-        list: Object.assign({},state.list,{[keyID]:deck}),
+        list: Object.assign(
+          {},
+          state.list,
+          {
+            [keyID]:{
+              ...state.list[keyID],
+              ...deck
+            }
+          }
+        ),
       }
     case ADD_QUESTION:
       return {
         list:{...state.list,
           [keyID]:{
+            ...state.list[keyID],
             questions:[...state.list[keyID].questions,question]
           }
         }
