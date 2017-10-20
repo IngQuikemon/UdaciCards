@@ -3,6 +3,8 @@ import {View,Text, StyleSheet,TouchableNativeFeedback,Animated,Easing} from 'rea
 import {connect} from 'react-redux';
 import {styleLibrary} from '../utils/styles';
 import {black,sMain,white,green,red,sDark} from '../utils/colors';
+import {cancelAllScheduledNotificationsAsync} from '../utils/helpers';
+import {addCard} from '../actions/index';
 
 class DeckQuiz extends Component{
   state ={
@@ -24,11 +26,24 @@ class DeckQuiz extends Component{
   }
 
   submit = result => {
+    const newPage = this.state.page + 1;
+    const newScore = this.state.score + result;
+    const deck = this.state.decks[this.state.deckId];
     this.setState({
-      score:(this.state.score + result),
-      page: (this.state.page + 1),
+      score:newScore,
+      page: newPage,
       toggleCard: 'q',
     });
+
+    if(newPage > this.state.questions.length){
+      cancelAllScheduledNotificationsAsync();
+      const deckToUpdate = {
+        highScore: deck.highScore > newScore ? deck.highScore : newScore ,
+        lastScore: newScore,
+        lastCompleted: Date.now(),
+      }
+      this.props.update({entry:deckToUpdate,key:this.props.title});
+    }
   }
 
   reset = () => {
@@ -126,4 +141,10 @@ const mapStateToProps = ({decks},{navigation}) => {
   }
 }
 
-export default connect(mapStateToProps)(DeckQuiz);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    update : (data) => dispatch(addCard(data)),
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(DeckQuiz);

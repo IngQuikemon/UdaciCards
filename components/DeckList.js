@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {styleLibrary} from '../utils/styles';
 import DeckListItem from './DeckListItem';
 import {getDecks} from '../utils/api';
-import {isEmpty} from '../utils/helpers';
+import {isEmpty,cleanTitleString} from '../utils/helpers';
 import {loadDecks} from '../actions/index';
 
 class DeckList extends Component{
@@ -18,11 +18,16 @@ class DeckList extends Component{
 
   listBuilder = ({item}) => {
       const {decks} = this.props;
+      const deckId= cleanTitleString(item.title);
       return (
-        <DeckListItem title={item.title} openDeck={() => this.props.navigation.navigate(
+        <DeckListItem
+          title={decks[deckId].title}
+          openDeck={() => this.props.navigation.navigate(
             'DeckDetail',
-            {deckId:item.title}
-          )} subTitle={`${this.props.decks[item.title].questions.length} cards`}/>
+            {deckId:deckId}
+          )}
+          subTitle={`${decks[deckId].questions.length} cards`}
+          highScore={`${decks[deckId].highScore.length} cards`}/>
       );
   };
 

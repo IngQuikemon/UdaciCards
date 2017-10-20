@@ -3,7 +3,7 @@ import {View,Text, StyleSheet,TextInput, TouchableNativeFeedback} from 'react-na
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import {styleLibrary} from '../utils/styles';
-import {cleanTitleString} from '../utils/helpers';
+import {cleanTitleString,upperTitleText} from '../utils/helpers';
 import {saveDeck} from '../utils/api';
 import {addDeck} from '../actions/index';
 import {sMain} from '../utils/colors';
@@ -14,23 +14,29 @@ class NewDeck extends Component{
   }
   submit = () => {
     const deck = {
-      title:cleanTitleString(this.state.newTitle),
+      title:upperTitleText(this.state.newTitle),
+      highScore:0,
+      lastScore:0,
+      lastCompleted:null,
       questions:[],
     };
+    console.log(deck);
+
+    const deckId = cleanTitleString(deck.title);
 
     const newDeck = {
       entry:deck,
-      key:deck.title
+      key:deckId
     };
 
-    this.props.add({deck:deck});
+    this.props.add({deck:deck,keyID:deckId});
     saveDeck(newDeck);
 
     this.setState({newTitle:''});
 
     this.props.navigation.navigate(
         'DeckDetail',
-        {deckId:deck.title}
+        {deckId:deckId}
     );
   }
   render(){

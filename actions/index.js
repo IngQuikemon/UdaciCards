@@ -5,13 +5,14 @@ export const loadDecks = ({decks}) =>({
   decks,
 });
 
-export const addDeck = ({deck}) => ({
+export const addDeck = ({deck,keyID}) => ({
   type:Constants.ADD_DECK,
   deck,
+  keyID,
 });
 
 export const addCard = ({title,question}) =>({
   type:Constants.ADD_QUESTION,
-  title,
+  keyID,
   question,
 });

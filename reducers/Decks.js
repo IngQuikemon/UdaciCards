@@ -5,7 +5,7 @@ const decksInitialValue = {
 }
 
 export default function decks(state= decksInitialValue, action){
-  const {decks,deck,title,question} = action;
+  const {decks,deck,keyID,question} = action;
   switch(action.type){
     case LOAD_DECKS:
       return {
@@ -13,13 +13,13 @@ export default function decks(state= decksInitialValue, action){
       };
     case ADD_DECK:
       return {
-        list: Object.assign({},state.list,{[deck.title]:deck}),
+        list: Object.assign({},state.list,{[keyID]:deck}),
       }
     case ADD_QUESTION:
       return {
         list:{...state.list,
-          [title]:{
-            questions:[...state.list[title].questions,question]
+          [keyID]:{
+            questions:[...state.list[keyID].questions,question]
           }
         }
       }

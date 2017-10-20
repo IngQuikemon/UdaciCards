@@ -1,5 +1,20 @@
 {
   "expo": {
-    "sdkVersion": "21.0.0"
+    "sdkVersion": "21.0.0",
+    "orientation": "portrait",
+    "name": "UdaciCards",
+    "description": "A very handy card learning app.",
+    "slug": "udacicards",
+    "version": "1.0",
+    "icon": "https://www.dropbox.com/s/jq39vws5tqhpylh/QuizIcon_512.png?dl=0",
+    "notification": {
+      "icon": "https://www.dropbox.com/s/a1lavnl5ldfyhea/QuizIcon_45.png?dl=0"
+    },
+    "ios": {
+      "bundleIdentifier": "org.udacicards.exp"
+    },
+    "android": {
+      "package": "org.udacicards.exp"
+    }
   }
 }
