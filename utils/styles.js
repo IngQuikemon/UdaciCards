@@ -24,7 +24,6 @@ export const styleLibrary = StyleSheet.create({
   },
   listItemTitle:{
     fontWeight:'bold',
-    fontSize:30,
     textAlign:'center'
   },
   listItemSubTitle:{

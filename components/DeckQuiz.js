@@ -11,13 +11,10 @@ class DeckQuiz extends Component{
     questions:[],
     toggleCard:'q',
     score:0,
-    spinValue: new Animated.Value(0),
   }
 
   componentDidMount(){
     const {decks,title} = this.props;
-    console.log(title);
-    console.log(decks);
 
     this.setState({
       questions: decks[title].questions,
@@ -42,13 +39,6 @@ class DeckQuiz extends Component{
   }
 
   flipCard = () => {
-    Animated.timing(
-      this.state.spinValue,{
-        toValue:1,
-        duration:1000,
-        easing:Easing.linear
-      }
-    ).start();
     const resultTest = this.state.toggleCard === 'q' ? 'a' : 'q';
     this.setState({
       toggleCard: resultTest
@@ -58,18 +48,14 @@ class DeckQuiz extends Component{
   static navigationOptions = ({navigation}) => ({title: 'Quiz'});
 
   render(){
-    const {page,total,questions,toggleCard,score,opacity} = this.state;
-    const spin = this.state.spinValue.interpolate({
-      inputRange: [0,1],
-      outputRange: ['0deg','360deg']
-    });
+    const {page,total,questions,toggleCard,score} = this.state;
+
     if((questions !== undefined && questions.length > 0)){
       if(((page + 1) <= questions.length)){
          return(
             <View style={[styleLibrary.container,{justifyContent:'space-between'}]}>
               <Text style={[styleLibrary.subTitleText,{alignItems:'flex-start'}]}>{page + 1}/{total}</Text>
-              <Animated.View style={[styleLibrary.containerCard,
-                {transform: [{rotate: spin}]}]}>
+              <Animated.View style={styleLibrary.containerCard}>
                 <Text style={[styleLibrary.detailDeckTitle,{alignItems:'center'}]}>"{toggleCard === 'q' ? questions[page].question : questions[page].answer}"</Text>
                 <View style={{alignItems:'flex-end'}}>
                   <TouchableNativeFeedback
