@@ -15,5 +15,4 @@ ButtonHolder = (props) => {
   )
 }
 
-
 export default ButtonHolder;

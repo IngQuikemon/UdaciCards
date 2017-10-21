@@ -13,6 +13,10 @@ class NewDeck extends Component{
   state = {
     newTitle:''
   }
+
+  /*
+  * @description Handles the logic for saving a new Deck in the store and database.
+  */
   submit = () => {
     const deck = {
       title:upperTitleText(this.state.newTitle),
@@ -21,7 +25,6 @@ class NewDeck extends Component{
       lastCompleted:null,
       questions:[],
     };
-    console.log(deck);
 
     const deckId = cleanTitleString(deck.title);
 
@@ -33,21 +36,18 @@ class NewDeck extends Component{
     this.props.add({deck:deck,keyID:deckId});
     saveDeck(newDeck);
 
-    this.setState({newTitle:''},
-      ()=>{
-        console.log("Title" + this.state.newTitle);
-        this.props.navigation.navigate(
-            'DeckDetail',
-            {title:deck.title}
-        );
-      });
+    this.setState({newTitle:''});
 
+    this.props.navigation.navigate(
+        'DeckDetail',
+        {title:deck.title}
+    );
   }
   render(){
     return(
       <View style={[styleLibrary.container,{justifyContent:'center'}]}>
         <View style={styleLibrary.addDeckContainer}>
-          <Text style={styleLibrary.addDeckTitle}>What is the title of your new deck?</Text>
+          <Text style={styleLibrary.deckTitle}>What is the title of your new deck?</Text>
           <TextInput
             placeholder="Deck Title"
             style={styleLibrary.addDeckInput}

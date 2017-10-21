@@ -26,7 +26,10 @@ class DeckQuiz extends Component{
       total:decks[deckId].questions.length,
     });
   }
-
+  /*
+  * @description Handles the submit for the correct/incorrect buttons of the quiz.
+  * @param {int} result - The value of the question if it was correct or not (0 or 1).
+  */
   submit = result => {
     //Declare variables needed.
     const {decks,deckId} = this.props;
@@ -54,6 +57,9 @@ class DeckQuiz extends Component{
     }
   }
 
+  /*
+  * @description Handles the reset of the quiz to start again.
+  */
   reset = () => {
     this.setState({
       score:0,
@@ -61,6 +67,9 @@ class DeckQuiz extends Component{
     })
   }
 
+  /*
+  * @description Handles the logic when flipping the card between question and answer.
+  */
   flipCard = () => {
     const resultTest = this.state.toggleCard === 'q' ? 'a' : 'q';
     this.setState({
@@ -68,6 +77,9 @@ class DeckQuiz extends Component{
     });
   }
 
+  /*
+  * @description Sets the title of the view.
+  */
   static navigationOptions = ({navigation}) => ({title: 'Quiz'});
 
   render(){
@@ -79,7 +91,7 @@ class DeckQuiz extends Component{
             <View style={[styleLibrary.container,{justifyContent:'space-between'}]}>
               <Text style={[styleLibrary.subTitleText,{alignItems:'flex-start'}]}>{page + 1}/{total}</Text>
               <View style={styleLibrary.containerCard}>
-                <Text style={[styleLibrary.detailDeckTitle,{alignItems:'center'}]}>"{toggleCard === 'q' ? questions[page].question : questions[page].answer}"</Text>
+                <Text style={[styleLibrary.deckTitle,{alignItems:'center'}]}>"{toggleCard === 'q' ? questions[page].question : questions[page].answer}"</Text>
                 <View style={{alignItems:'flex-end'}}>
                   <TouchableNativeFeedback
                     onPress={this.flipCard}>
@@ -108,10 +120,10 @@ class DeckQuiz extends Component{
       }else{
         return(
           <View style={[styleLibrary.container,{justifyContent:'center'}]}>
-            <Text style={[styleLibrary.detailDeckTitle,{fontSize:25}]}>
+            <Text style={[styleLibrary.deckTitle,{fontSize:25}]}>
               Great job. Your score this round is:
             </Text>
-            <Text style={[styleLibrary.detailDeckTitle,{alignItems:'center'}]}>
+            <Text style={[styleLibrary.deckTitle,{alignItems:'center'}]}>
               {score} correct out of {questions.length}
             </Text>
             <View style={{marginBottom:100}}>

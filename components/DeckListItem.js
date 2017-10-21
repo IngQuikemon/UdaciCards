@@ -9,7 +9,9 @@ class DeckListItem extends Component{
   componentWillMount(){
     this.bounceAnim = new Animated.Value(0);
   }
-
+  /*
+  * @description Handles the logic for the deck selection.
+  */
   submitDeck = () => {
     Animated.sequence([
       Animated.decay(
@@ -31,7 +33,10 @@ class DeckListItem extends Component{
       () => this.props.openDeck()
     );
   }
-
+  /*
+  * @description Parses the subtitle string.
+  * @param {int} cardCount - The number of questions the deck holds.
+  */
   subTitleString = (cardCount) => {
     return `${cardCount} cards`;
   }

@@ -7,13 +7,16 @@ import {cleanTitleString} from '../utils/helpers';
 
 class DeckDetail extends Component{
 
+  /*
+  * @description defines the title of the view.
+  */
   static navigationOptions = ({navigation}) => ({title: navigation.state.params.title});
 
   render(){
     const {decks,deckId} = this.props;
     return(
-      <View style={styleLibrary.detailContainer}>
-        <Text style={styleLibrary.detailDeckTitle}>
+      <View style={styleLibrary.containerCenter}>
+        <Text style={styleLibrary.deckTitle}>
           {decks[deckId].title}
         </Text>
         <Text style={styleLibrary.detailDeckSubTitle}>

@@ -13,9 +13,14 @@ class NewCard extends Component{
     question: '',
     answer:'',
   }
-
+  /*
+  * @description Sets the title of the View.
+  */
   static navigationOptions = ({navigation}) => ({title:'Add New Card' });
 
+  /*
+  * @description Handles the logic for saving a new Question card in the deck.
+  */
   submit = () =>{
     const {decks,deckId} = this.props;
     const question = {
@@ -43,7 +48,7 @@ class NewCard extends Component{
 
   render(){
     return(
-    <View style={[styleLibrary.detailContainer,{padding:20}]}>
+    <View style={[styleLibrary.containerCenter,{padding:20}]}>
       <TextInput placeholder="Type a question" style={styleLibrary.addDeckInput} onChangeText={(text) => this.setState({question:text})}/>
       <TextInput placeholder="Type an answer" style={styleLibrary.addDeckInput} onChangeText={(text) => this.setState({answer:text})}/>
       <ButtonHolder

@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {black,white,gray,grayLight,sMain,sDark} from './colors';
+
 export const styleLibrary = StyleSheet.create({
   container:{
     flex:1,
@@ -37,27 +38,10 @@ export const styleLibrary = StyleSheet.create({
     justifyContent:'space-between',
     alignItems:'stretch',
   },
-  addDeckTitle:{
-    fontSize:45,
-    fontWeight:'bold',
-    textAlign:'center'
-  },
   addDeckInput:{
     marginTop:20,
     height:70,
     fontSize:25,
-  },
-  addDeckButtonContainer:{
-    marginTop:20,
-    padding:10,
-    backgroundColor:sMain,
-    alignItems:'center',
-    justifyContent:'center',
-    borderRadius:2,
-  },
-  addDeckButtonText:{
-    color:black,
-    fontSize:22,
   },
   buttonContainer:{
     alignItems:'center',
@@ -80,7 +64,7 @@ export const styleLibrary = StyleSheet.create({
     elevation:2,
   },
   //Button DeckDetail
-  detailContainer: {
+  containerCenter: {
     flex:1,
     justifyContent:'center',
   },
@@ -107,7 +91,7 @@ export const styleLibrary = StyleSheet.create({
     marginRight:15,
     fontSize:22,
   },
-  detailDeckTitle:{
+  deckTitle:{
     fontSize:45,
     fontWeight:'bold',
     textAlign:'center'

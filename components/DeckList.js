@@ -10,6 +10,10 @@ import SingleTextDialog from './SingleTextDialog';
 
 class DeckList extends Component{
 
+  /*
+  * @description loads the decks into the store, and verifies if there is already
+  *  a quiz completed. In case there is, it will clear the notifications for the day.
+  */
   componentDidMount(){
     getDecks()
     .then((decks) => {
@@ -24,6 +28,10 @@ class DeckList extends Component{
     });
   }
 
+  /*
+  * @description In charge to define the logic of the list builder.
+  * @param {object} item - The deck to be rendered in the list.
+  */
   listBuilder = ({item}) => {
       const {decks} = this.props;
       const deckId= cleanTitleString(item.title);

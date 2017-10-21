@@ -21,6 +21,9 @@ function UdaciStatusBar ({backgroundColor,...props}){
   )
 }
 
+/*
+* @description Tab Navigator component for the tab rendering in the app.
+*/
 const Tabs = TabNavigator({
   Decks: {
     screen: DeckList,
@@ -53,6 +56,9 @@ const Tabs = TabNavigator({
   }
 });
 
+/*
+* @description Main Navigator component to hold the other view to open.
+*/
 const MainNavigator = StackNavigator({
   Home:{
     screen: Tabs,

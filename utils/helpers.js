@@ -3,19 +3,35 @@ import {Notifications, Permissions} from 'expo';
 
 const NOTIFICATION_KEY = 'UdaciCards:notifications';
 
+/*
+* @description Removes spaces from the string.
+* @param {string} title - The title of the deck.
+*/
 export const cleanTitleString = title => {
   return "".concat(...title.split(' '));
 }
 
+/*
+* @description Makes the first letter of each word in the string uppercase.
+* @param {string} title - The string to be upper cased on the first letter of each word.
+*/
 export const upperTitleText = title => {
   return title.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
+/*
+* @description Formats a date in the right string format 'MM/DD/YYYY HH:mm'.
+* @param {long} date - The millisecond value of the date.
+*/
 export const formattedDate = date => {
   const dateToFormat = new Date(date);
   return `${dateToFormat.getMonth()}/${dateToFormat.getDate()}/${dateToFormat.getFullYear()} ${`0${dateToFormat.getHours()}`.slice(-2)}:${`0${dateToFormat.getMinutes()}`.slice(-2)}`;
 }
 
+/*
+* @description Validates if an object is empty or contains something.
+* @param {object} obj - Object to verify if it is null.
+*/
 export const isEmpty = obj => {
 
   if(isValueEmpty(obj)){
@@ -29,13 +45,20 @@ export const isEmpty = obj => {
   return true;
 }
 
+/*
+* @description Validates if the value passed is null or undefined.
+* @param {object} obj - The object to be validated.
+*/
 export const isValueEmpty = obj => {
   if (obj === null) return true;
 
   if (obj === undefined) return true;
 }
 
-
+/*
+* @description Verifies if the date sent is before the current time.
+* @param {long} deckDate - The date/time value of the last time the deck was completed.
+*/
 export const findQuizDoneToday = deckDate => {
   const dateParsed = new Date(deckDate);
   const dateEvaluate = `${dateParsed.getMonth()}${dateParsed.getDate()}${dateParsed.getFullYear()}`;
@@ -43,13 +66,17 @@ export const findQuizDoneToday = deckDate => {
   return (currentDate===dateEvaluate);
 }
 
-
-
+/*
+* @description Clears the local notifications for the app.
+*/
 export function clearLocalNotification() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync);
 }
 
+/*
+* @description Sets the local notifications of the app.
+*/
 export function setLocalNotification(){
 
   const contentNotification = {
@@ -69,7 +96,7 @@ export function setLocalNotification(){
   AsyncStorage.getItem(NOTIFICATION_KEY)
   .then(JSON.parse)
   .then((data)=>{
-    if(data=== null){
+    if(data === null){
       Permissions.askAsync(Permissions.NOTIFICATIONS)
       .then(({status}) =>{
         Notifications.cancelAllScheduledNotificationsAsync();
