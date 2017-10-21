@@ -51,7 +51,6 @@ class DeckQuiz extends Component{
         lastScore: newScore,
         lastCompleted: Date.now(),
       }
-      console.log({entry:deckToUpdate,key:deckId});
       this.props.update({deck:deckToUpdate,keyID:deckId});
       saveDeck({entry:deckToUpdate,key:deckId});
     }
