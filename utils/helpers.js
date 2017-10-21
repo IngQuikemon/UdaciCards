@@ -13,7 +13,7 @@ export const upperTitleText = title => {
 
 export const formattedDate = date => {
   const dateToFormat = new Date(date);
-  return `${dateToFormat.getMonth()}/${dateToFormat.getDate()}/${dateToFormat.getYear()} ${dateToFormat.getHours()}:${dateToFormat.getMinutes()}`;
+  return `${dateToFormat.getMonth()}/${dateToFormat.getDate()}/${dateToFormat.getFullYear()} ${`0${dateToFormat.getHours()}`.slice(-2)}:${`0${dateToFormat.getMinutes()}`.slice(-2)}`;
 }
 
 export const isEmpty = obj => {
@@ -34,6 +34,16 @@ export const isValueEmpty = obj => {
 
   if (obj === undefined) return true;
 }
+
+
+export const findQuizDoneToday = deckDate => {
+  const dateParsed = new Date(deckDate);
+  const dateEvaluate = `${dateParsed.getMonth()}${dateParsed.getDate()}${dateParsed.getFullYear()}`;
+  const currentDate = `${new Date().getMonth()}${new Date().getDate()}${new Date().getFullYear()}`;
+  return (currentDate===dateEvaluate);
+}
+
+
 
 export function clearLocalNotification() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
@@ -62,22 +72,22 @@ export function setLocalNotification(){
     if(data=== null){
       Permissions.askAsync(Permissions.NOTIFICATIONS)
       .then(({status}) =>{
-        console.log(status);
         Notifications.cancelAllScheduledNotificationsAsync();
 
         let newSchedule = new Date();
         newSchedule.setDate(newSchedule.getDate());
         newSchedule.setHours(20);
         newSchedule.setMinutes(0);
-
-        Notifications.scheduleLocalNotificationAsync(
-          contentNotification,
-          {
-            time:newSchedule,
-            repeat:'day',
-          }
-        );
-        AsyncStorage.setItem(NOTIFICATION_KEY,JSON.stringify(true));
+        if(newSchedule.getTime() > Date.now()){
+          Notifications.scheduleLocalNotificationAsync(
+            contentNotification,
+            {
+              time:newSchedule,
+              repeat:'day',
+            }
+          );
+          AsyncStorage.setItem(NOTIFICATION_KEY,JSON.stringify(true));
+        }
       })
     }
   })

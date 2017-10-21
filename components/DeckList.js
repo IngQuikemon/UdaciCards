@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {View,Text, StyleSheet,FlatList} from 'react-native';
+import {View,Text,FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {styleLibrary} from '../utils/styles';
 import DeckListItem from './DeckListItem';
 import {getDecks} from '../utils/api';
-import {isEmpty,cleanTitleString} from '../utils/helpers';
+import {isEmpty,cleanTitleString,findQuizDoneToday,clearLocalNotification} from '../utils/helpers';
 import {loadDecks} from '../actions/index';
 import SingleTextDialog from './SingleTextDialog';
 
@@ -14,6 +14,13 @@ class DeckList extends Component{
     getDecks()
     .then((decks) => {
       this.props.load({decks:decks});
+      const deckNames = Object.keys(decks);
+      for(x = 0; x <deckNames.length ; x++){
+        if(findQuizDoneToday(decks[deckNames[x]].lastCompleted)){
+          clearLocalNotification();
+          break;
+        }
+      }
     });
   }
 
@@ -32,7 +39,6 @@ class DeckList extends Component{
 
   render(){
     const {decks} = this.props;
-    console.log(decks);
     let decksForList = Object.keys(decks).map((item) => ({key:item,title:item}));
     return(
       <View style={styleLibrary.container}>

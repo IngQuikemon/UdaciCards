@@ -11,5 +11,4 @@ SingleTextDialog = (props) => {
   )
 }
 
-
 export default SingleTextDialog;

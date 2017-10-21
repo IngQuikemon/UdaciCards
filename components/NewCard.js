@@ -6,6 +6,7 @@ import {styleLibrary} from '../utils/styles';
 import {sMain} from '../utils/colors';
 import {saveDeck} from '../utils/api';
 import {addCard} from '../actions/index';
+import ButtonHolder from './ButtonHolder';
 
 class NewCard extends Component{
   state ={
@@ -45,14 +46,12 @@ class NewCard extends Component{
     <View style={[styleLibrary.detailContainer,{padding:20}]}>
       <TextInput placeholder="Type a question" style={styleLibrary.addDeckInput} onChangeText={(text) => this.setState({question:text})}/>
       <TextInput placeholder="Type an answer" style={styleLibrary.addDeckInput} onChangeText={(text) => this.setState({answer:text})}/>
-      <View style={styleLibrary.buttonContainer}>
-        <TouchableNativeFeedback
-          onPress={this.submit}>
-          <View style={[styleLibrary.buttonRaised,{backgroundColor:sMain,marginTop:100}]}>
-            <Text style={styleLibrary.detailDeckButtonText}>Add Card</Text>
-          </View>
-        </TouchableNativeFeedback>
-      </View>
+      <ButtonHolder
+        submit={this.submit}
+        buttonColor={sMain}
+        buttonText={'Add Card'}
+        buttonMargin={100}
+        />
     </View>
   );
   }

@@ -6,6 +6,7 @@ import {black,sMain,white,green,red,sDark} from '../utils/colors';
 import {clearLocalNotification,isEmpty} from '../utils/helpers';
 import {addDeck} from '../actions/index';
 import {saveDeck} from '../utils/api';
+import ButtonHolder from './ButtonHolder';
 
 class DeckQuiz extends Component{
   state ={
@@ -88,19 +89,19 @@ class DeckQuiz extends Component{
                   </TouchableNativeFeedback>
                 </View>
               </View>
-              <View style={[styleLibrary.buttonContainer,{marginBottom:150}]}>
-                <TouchableNativeFeedback
-                  onPress={() => this.submit(1)}>
-                  <View style={[styleLibrary.buttonRaised,{backgroundColor:green}]}>
-                    <Text style={styleLibrary.detailDeckButtonText}>Correct</Text>
-                  </View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback
-                  onPress={() => this.submit(0)}>
-                  <View style={[styleLibrary.buttonRaised,{backgroundColor:red}]}>
-                    <Text style={styleLibrary.detailDeckButtonText}>Incorrect</Text>
-                  </View>
-                </TouchableNativeFeedback>
+              <View style={{marginBottom:100}}>
+                <ButtonHolder
+                  submit={() => this.submit(1)}
+                  buttonColor={green}
+                  buttonText={'Correct'}
+                  buttonMargin={0}
+                  />
+                <ButtonHolder
+                  submit={() => this.submit(0)}
+                  buttonColor={red}
+                  buttonText={'Incorrect'}
+                  buttonMargin={20}
+                  />
               </View>
             </View>
           )
@@ -113,19 +114,19 @@ class DeckQuiz extends Component{
             <Text style={[styleLibrary.detailDeckTitle,{alignItems:'center'}]}>
               {score} correct out of {questions.length}
             </Text>
-            <View style={[styleLibrary.buttonContainer,{marginBottom:150}]}>
-              <TouchableNativeFeedback
-                onPress={this.reset}>
-                <View style={[styleLibrary.buttonRaised,{backgroundColor:white}]}>
-                  <Text style={styleLibrary.detailDeckButtonText}>Try Again</Text>
-                </View>
-              </TouchableNativeFeedback>
-              <TouchableNativeFeedback
-                onPress={() => this.props.navigation.goBack()}>
-                <View style={[styleLibrary.buttonRaised,{backgroundColor:sMain}]}>
-                  <Text style={styleLibrary.detailDeckButtonText}>Close Quiz</Text>
-                </View>
-              </TouchableNativeFeedback>
+            <View style={{marginBottom:100}}>
+              <ButtonHolder
+                submit={this.reset}
+                buttonColor={white}
+                buttonText={'Try Again'}
+                buttonMargin={0}
+                />
+              <ButtonHolder
+                submit={() => this.props.navigation.goBack()}
+                buttonColor={sMain}
+                buttonText={'Close Quiz'}
+                buttonMargin={20}
+                />
             </View>
           </View>
         )

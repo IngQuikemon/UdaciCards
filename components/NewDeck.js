@@ -7,6 +7,7 @@ import {cleanTitleString,upperTitleText} from '../utils/helpers';
 import {saveDeck} from '../utils/api';
 import {addDeck} from '../actions/index';
 import {sMain} from '../utils/colors';
+import ButtonHolder from './ButtonHolder';
 
 class NewDeck extends Component{
   state = {
@@ -32,28 +33,31 @@ class NewDeck extends Component{
     this.props.add({deck:deck,keyID:deckId});
     saveDeck(newDeck);
 
-    this.setState({newTitle:''});
+    this.setState({newTitle:''},
+      ()=>{
+        console.log("Title" + this.state.newTitle);
+        this.props.navigation.navigate(
+            'DeckDetail',
+            {title:deck.title}
+        );
+      });
 
-    this.props.navigation.navigate(
-        'DeckDetail',
-        {deckId:deckId}
-    );
   }
   render(){
     return(
-      <View style={styleLibrary.container}>
+      <View style={[styleLibrary.container,{justifyContent:'center'}]}>
         <View style={styleLibrary.addDeckContainer}>
           <Text style={styleLibrary.addDeckTitle}>What is the title of your new deck?</Text>
-          <TextInput placeholder="Deck Title" style={styleLibrary.addDeckInput} onChangeText={(text) => this.setState({newTitle:text})}/>
-          <View style={[styleLibrary.buttonContainer,{marginTop:150}]}>
-            <TouchableNativeFeedback
-              background={TouchableNativeFeedback.SelectableBackground()}
-              onPress={this.submit}>
-              <View style={[styleLibrary.buttonRaised,{backgroundColor:sMain}]} >
-                <Text style={styleLibrary.addDeckButtonText} >Create Deck</Text>
-              </View>
-            </TouchableNativeFeedback>
-          </View>
+          <TextInput
+            placeholder="Deck Title"
+            style={styleLibrary.addDeckInput}
+            onChangeText={(text) => this.setState({newTitle:text})}
+            value={this.state.newTitle}/>
+          <ButtonHolder
+            submit={this.submit}
+            buttonColor={sMain}
+            buttonText={'Create Deck'}
+            buttonMargin={100}/>
         </View>
       </View>
     );
