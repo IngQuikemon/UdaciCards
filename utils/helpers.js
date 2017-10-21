@@ -13,6 +13,7 @@ export const cleanTitleString = title => {
 
 /*
 * @description Makes the first letter of each word in the string uppercase.
+* Code obtained from https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
 * @param {string} title - The string to be upper cased on the first letter of each word.
 */
 export const upperTitleText = title => {
@@ -76,6 +77,7 @@ export function clearLocalNotification() {
 
 /*
 * @description Sets the local notifications of the app.
+* Notification logic based on Udacity UdaciFitness app logic.
 */
 export function setLocalNotification(){
 
