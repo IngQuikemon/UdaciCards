@@ -10,6 +10,9 @@ import SingleTextDialog from './SingleTextDialog';
 
 class DeckList extends Component{
 
+  state={
+    loading:true,
+  }
   /*
   * @description loads the decks into the store, and verifies if there is already
   *  a quiz completed. In case there is, it will clear the notifications for the day.
@@ -25,6 +28,7 @@ class DeckList extends Component{
           break;
         }
       }
+      this.setState({loading:false});
     });
   }
 
@@ -47,16 +51,19 @@ class DeckList extends Component{
 
   render(){
     const {decks} = this.props;
+    const {loading} = this.state;
     let decksForList = Object.keys(decks).map((item) => ({key:item,title:item}));
     return(
       <View style={styleLibrary.container}>
-        {isEmpty(decks)
-        ? <SingleTextDialog text="" subText="You haven't created any decks yet. Start creating new decks by using the tab 'New Deck'."/>
-        : <FlatList
-            data={decksForList}
-            extraData={decks}
-            renderItem={this.listBuilder}>
-          </FlatList>
+        {loading
+          ? <View></View>
+          : isEmpty(decks)
+            ? <SingleTextDialog text="" subText="You haven't created any decks yet. Start creating new decks by using the tab 'New Deck'."/>
+            : <FlatList
+                data={decksForList}
+                extraData={decks}
+                renderItem={this.listBuilder}>
+              </FlatList>
         }
       </View>);
   }
